@@ -11,10 +11,10 @@ filter: invert(1);
 .svg-size3 {
     width: 20px;
 }
-.backgroung-grey {
+.background-grey {
     background-color: #1f1f1f;
 }
-.flex {
+.flex-center {
     display: flex;
     justify-content: center;
     align-items: center;
