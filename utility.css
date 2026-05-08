@@ -1,0 +1,21 @@
+.invert {
+filter: invert(1);
+}
+
+.svg-size1 {
+    width: 45px;
+}
+.svg-size2 {
+    width: 30px;
+}
+.svg-size3 {
+    width: 20px;
+}
+.backgroung-grey {
+    background-color: #1f1f1f;
+}
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

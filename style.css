@@ -1,0 +1,64 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: white;
+    font-family: 'Spotify';
+}
+
+:root {
+    --body-bg: #000000;
+}
+
+@font-face {
+  font-family: 'Spotify';
+  src: url('assets\\font\\Spotify Mix UI\\spotify_mix_ui_regular.otf') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; 
+}
+
+body {
+    background: var(--body-bg);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 25px;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    margin-right: 8px;
+}
+.home-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    /* border: 2px solid white; */
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    height: 45px;
+}
+
+.search {
+    gap: 10px;
+    background: #1f1f1f;
+    border-radius: 100px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.right {
+    display: flex;
+    gap: 10px;
+}
