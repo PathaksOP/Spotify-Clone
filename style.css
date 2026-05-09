@@ -129,9 +129,10 @@ nav {
 .sidebar,
 .content {
   border-radius: 10px;
-  padding: 20px;
+  padding: 15px;
 }
 .sidebar {
+  position: relative;
   padding: 0 !important;
   display: flex;
   justify-content: center;
@@ -141,6 +142,8 @@ nav {
   font-weight: 700;
   padding: 10px 14px;
   letter-spacing: 0.7px;
+  position: absolute;
+  top: 0;
 }
 
 .sidebar-top button {
@@ -151,4 +154,60 @@ nav {
   letter-spacing: 0.7px;
   border: none;
   cursor: pointer;
+}
+
+/* .playlists > h1 {
+  
+} */
+.cardContainer {
+  margin-top: 10px;
+}
+.card {
+  position: relative;
+  width: 100%;
+  /* border: 1px solid #ff0000; */
+  /* border-radius: 10px; */
+  /* padding: 10px; */
+  /* margin: 10px; */
+  cursor: pointer;
+  background: transparent;
+  z-index: 2;
+}
+.card-bg {
+  width: 210px;
+  padding: 10px;
+  border-radius: 16px;
+  background: transparent;
+}
+.card-bg:hover {
+  background: rgba(255, 0, 0, 0.39);
+  transition: all 0.25s ease-in-out;
+  .card div.div-img-main div{
+    opacity: 1;
+  }
+}
+.div-img-main {
+  width: 100%;
+}
+.card div.div-img-main {
+  position: relative;
+}
+.card div.div-img-main > img {
+  border-radius: 10px;
+  width: 100%;
+  align-self: center;
+}
+.card div.div-img-main div {
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  position: absolute;
+  bottom: 14px;
+  right: 10px;
+  z-index: 1;
+  background: #3be477;
+  opacity: 0;
+}
+.card div.div-img-main div img {
+  width: 80%;
 }
