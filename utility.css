@@ -1,21 +1,43 @@
 .invert {
-filter: invert(1);
+  filter: invert(1);
 }
 
 .svg-size1 {
-    width: 45px;
+  width: 45px;
 }
 .svg-size2 {
-    width: 30px;
+  width: 30px;
 }
 .svg-size3 {
-    width: 20px;
+  width: 20px;
 }
-.background-grey {
-    background-color: #1f1f1f;
+.hover-button {
+  transition: transform 0.2s ease-in-out;
+  transform-origin: center center;
+}
+
+.hover-button:hover {
+  background-color: #2a2a2a;
+  cursor: pointer;
+  /* transform: scale(1.05); */
+}
+.hover-text:hover {
+  background-color: #2a2a2a;
+  cursor: pointer;
+}
+.background-grey-2 {
+  background-color: #1f1f1f;
+}
+.background-grey-1 {
+  background-color: #121212;
 }
 .flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

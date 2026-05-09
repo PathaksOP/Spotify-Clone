@@ -28,6 +28,7 @@ body {
     "nav nav"
     "left right";
   gap: 8px;
+  margin: 0 8px;
   /* height: 100vh;
   width: 100vw; */
 }
@@ -54,11 +55,17 @@ nav {
   justify-content: center;
   align-items: center;
   background: transparent;
-  /* border: 2px solid white; */
   border: none;
   cursor: pointer;
   border-radius: 50%;
   height: 45px;
+  width: 45px;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.home-button img {
+  display: block;
 }
 
 .search {
@@ -70,7 +77,6 @@ nav {
 }
 
 .right {
-  display: flex;
   gap: 10px;
   font-weight: 700;
   letter-spacing: 0.7px;
@@ -78,6 +84,8 @@ nav {
 
 .right1 {
   gap: 15px;
+
+  color: #b3b3b3 !important;
 }
 .right2 {
   width: 1.5px;
@@ -87,10 +95,19 @@ nav {
 }
 
 .right3 {
+  color: #b3b3b3 !important;
   gap: 30px;
   font-size: 12px;
 }
 
+.right3 button {
+  color: #000000;
+  padding: 13px 28px;
+  font-size: 14px;
+  border-radius: 24px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+}
 .install {
   gap: 10px;
 }
@@ -113,4 +130,25 @@ nav {
 .content {
   border-radius: 10px;
   padding: 20px;
+}
+.sidebar {
+  padding: 0 !important;
+  display: flex;
+  justify-content: center;
+}
+.sidebar-top {
+  width: 94%;
+  font-weight: 700;
+  padding: 10px 14px;
+  letter-spacing: 0.7px;
+}
+
+.sidebar-top button {
+  gap: 10px;
+  font-weight: 700;
+  border-radius: 100px;
+  padding: 10px 15px;
+  letter-spacing: 0.7px;
+  border: none;
+  cursor: pointer;
 }
