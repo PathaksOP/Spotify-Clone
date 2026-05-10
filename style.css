@@ -124,6 +124,7 @@ nav {
   grid-area: left;
 }
 .content {
+  position: relative;
   grid-area: right;
   background: linear-gradient(to bottom, #212121, #121212) !important;
   overflow-y: scroll;
@@ -254,3 +255,43 @@ nav {
 }
 /* from 212121*/
 /* to 121212 */
+
+.play-bar {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgb(0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+.previous,
+.next {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+.previous:hover path,
+.next:hover path {
+  fill: rgb(255, 255, 255);
+}
+.play-div {
+  cursor: pointer;
+  background: #ebebeb;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+.play {
+  width: 20px !important;
+  height: 20px !important;
+}
+.play-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
