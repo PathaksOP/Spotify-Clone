@@ -125,11 +125,32 @@ nav {
 }
 .content {
   grid-area: right;
+  background: linear-gradient(to bottom, #212121, #121212) !important;
+  overflow-y: scroll;
+
+  /* background: red !important; */
+}
+.content::-webkit-scrollbar {
+  width: 10px;
+}
+
+.content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.201); /* transparent grey */
+  border-radius: 10px;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+  background: rgba(128, 128, 128, 0.65);
 }
 .sidebar,
 .content {
   border-radius: 10px;
   padding: 15px;
+  height: 90vh;
 }
 .sidebar {
   position: relative;
@@ -161,6 +182,10 @@ nav {
 } */
 .cardContainer {
   margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 10px;
+  place-items: center;
 }
 .card {
   position: relative;
@@ -174,15 +199,16 @@ nav {
   z-index: 2;
 }
 .card-bg {
-  width: 210px;
+  /* width: 210px; */
   padding: 10px;
-  border-radius: 16px;
+  border-radius: 14px;
   background: transparent;
 }
 .card-bg:hover {
-  background: rgba(255, 0, 0, 0.39);
+  background: #1f1f1f;
   transition: all 0.25s ease-in-out;
-  .card div.div-img-main div{
+  .card div.div-img-main div {
+    transform: translateY(-24px);
     opacity: 1;
   }
 }
@@ -193,21 +219,38 @@ nav {
   position: relative;
 }
 .card div.div-img-main > img {
-  border-radius: 10px;
+  border-radius: 7px;
   width: 100%;
   align-self: center;
 }
 .card div.div-img-main div {
   border-radius: 50%;
-  width: 34px;
-  height: 34px;
+  width: 40px;
+  height: 40px;
   position: absolute;
-  bottom: 14px;
+  bottom: -7px;
   right: 10px;
   z-index: 1;
   background: #3be477;
   opacity: 0;
+  transform: translateY(0);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
 }
 .card div.div-img-main div img {
-  width: 80%;
+  width: 55%;
 }
+.card h4 {
+  margin: 5px 0;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+}
+.card p {
+  color: #b3b3b3 !important;
+  font-size: 12px;
+  letter-spacing: 0.7px;
+}
+/* from 212121*/
+/* to 121212 */
