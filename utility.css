@@ -11,6 +11,9 @@
 .svg-size3 {
   width: 20px;
 }
+.img-size1 {
+  width: 53px;
+}
 .hover-button {
   transition: transform 0.2s ease-in-out;
   transform-origin: center center;
@@ -53,9 +56,9 @@
   justify-content: flex-start;
   align-items: center;
 }
-.flex-column-left-center {
+.flex-column-left-top {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
 }

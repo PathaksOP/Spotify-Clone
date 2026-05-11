@@ -16,7 +16,7 @@ async function getSongs() {
   return songs;
 }
 
-async function main(AddSongsToLibrary) {
+async function main(AddSongsToLibrary, AddSongsToPlaylist) {
   let songs = await getSongs();
   let song_names = [];
   songs.forEach((song, index) => {
@@ -30,17 +30,69 @@ async function main(AddSongsToLibrary) {
   console.log(song_names);
 
   AddSongsToLibrary(song_names);
+  AddSongsToPlaylist(song_names);
 }
 const AddSongsToLibrary = (song_names) => {
-  song_names.forEach((song) => {
+  song_names.forEach((song, index) => {
     let div = document.createElement("div");
     div.classList.add("song");
-    div.innerHTML = song;
+    div.setAttribute("id", `song-${index + 1}`);
     document.querySelector(".song-library").appendChild(div);
+    let div2 = document.createElement("div");
+    div2.classList.add("img-div");
+    div2.setAttribute("id", `div-img-${index + 1}`);
+    document.querySelector(`#song-${index + 1}`).appendChild(div2);
+    let image = document.createElement("img");
+    image.src = `assets/SongImg/${song}.jpg`;
+    image.classList.add("img-size1");
+    image.classList.add("song-img");
+    document.querySelector(`#div-img-${index + 1}`).appendChild(image);
+    let div3 = document.createElement("div");
+    div3.classList.add("song-content-div");
+    div3.setAttribute("id", `div-song-content-${index + 1}`);
+    document.querySelector(`#song-${index + 1}`).appendChild(div3);
+    let div_song_name = document.createElement("div");
+    // div_song_name.classList.add("song");
+    div_song_name.classList.add("song-name");
+    div_song_name.innerHTML = `${song.split(" - ")[0]}`;
+    document
+      .querySelector(`#div-song-content-${index + 1}`)
+      .appendChild(div_song_name);
+    let div_artist = document.createElement("div");
+    // div_artist.classList.add("song");
+    div_artist.classList.add("song-artist");
+    div_artist.innerHTML = `${song.split(" - ")[1]}`;
+    document
+      .querySelector(`#div-song-content-${index + 1}`)
+      .appendChild(div_artist);
   });
 };
 
-main(AddSongsToLibrary);
+const AddSongsToPlaylist = (song_names) => {
+  song_names.forEach((song) => {
+    let div = document.createElement("div");
+    div.classList.add("card-bg");
+    div.classList.add("flex-center");
+    div.innerHTML = `<div class="card">
+              <div class="div-img-main">
+                <img
+                  src="assets/SongImg/${song}.jpg"
+                  alt="${song}"
+                />
+                <div class="flex-center">
+                  <img src="assets/svg/play.svg" alt="play" />
+                </div>
+              </div>
+
+              <h4>${song.split(" - ")[0]}</h4>
+              <p>${song.split(" - ")[1]}</p>
+            </div>`;
+
+    document.querySelector(".cardContainer").appendChild(div);
+  });
+};
+
+main(AddSongsToLibrary, AddSongsToPlaylist);
 
 document.querySelector(".play-div").addEventListener("click", async () => {
   let songs = await getSongs();

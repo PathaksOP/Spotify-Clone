@@ -161,7 +161,54 @@ nav {
   gap: 10px;
 }
 .song-library {
-  padding: 10px;
+  width: 100%;
+  margin: 10px 24px;
+  gap: 10px;
+  align-self: start;
+}
+.song {
+  padding: 10px 10px;
+  width: 85%;
+  border-radius: 4px;
+
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  justify-items: center;
+  align-items: center;
+  cursor: pointer;
+}
+.song:hover {
+  background: #1f1f1f;
+}
+.song-content-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  gap: 5px;
+  justify-self: start;
+}
+.img-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: center;
+}
+.song-img {
+  border-radius: 4px;
+}
+.song-name {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  /* align-self: start; */
+}
+.song-artist {
+  color: #b3b3b3 !important;
+  font-size: 13px;
+  letter-spacing: 0.7px;
+  /* align-self: end; */
 }
 .sidebar-top {
   width: 94%;
