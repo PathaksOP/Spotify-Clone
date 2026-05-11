@@ -1,3 +1,5 @@
+let audio;
+
 async function getSongs() {
   let a = await fetch("http://127.0.0.1:3000/assets/songs/");
   let response = await a.text();
@@ -14,15 +16,35 @@ async function getSongs() {
   return songs;
 }
 
-async function main() {
+async function main(AddSongsToLibrary) {
   let songs = await getSongs();
+  let song_names = [];
+  songs.forEach((song, index) => {
+    let song_name = song
+      .split("songs%5C")[1]
+      .replaceAll("%20", " ")
+      .replace(".mp3", "");
+    song_names.push(song_name);
+  });
   console.log(songs);
+  console.log(song_names);
+
+  AddSongsToLibrary(song_names);
 }
+const AddSongsToLibrary = (song_names) => {
+  song_names.forEach((song) => {
+    let div = document.createElement("div");
+    div.classList.add("song");
+    div.innerHTML = song;
+    document.querySelector(".song-library").appendChild(div);
+  });
+};
 
-// main();
+main(AddSongsToLibrary);
 
-document.querySelector(".play-div").addEventListener("click", async (main) => {
+document.querySelector(".play-div").addEventListener("click", async () => {
   let songs = await getSongs();
+
   if (!audio) {
     audio = new Audio(songs[0]);
 
@@ -32,12 +54,10 @@ document.querySelector(".play-div").addEventListener("click", async (main) => {
       console.log(audio.currentSrc);
     });
   }
+
   if (audio.paused) {
-    audio.play();
+    await audio.play();
     console.log("audio is playing");
-    audio.addEventListener("loadeddata", () => {
-      console.log(audio.duration, audio.currentTime, audio.currentSrc);
-    });
   } else {
     audio.pause();
     console.log("audio is paused");

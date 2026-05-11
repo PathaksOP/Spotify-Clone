@@ -158,14 +158,18 @@ nav {
   padding: 0 !important;
   display: flex;
   justify-content: center;
+  gap: 10px;
+}
+.song-library {
+  padding: 10px;
 }
 .sidebar-top {
   width: 94%;
   font-weight: 700;
   padding: 10px 14px;
   letter-spacing: 0.7px;
-  position: absolute;
-  top: 0;
+  /* position: absolute;
+  top: 0; */
 }
 
 .sidebar-top button {

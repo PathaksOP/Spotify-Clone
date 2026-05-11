@@ -47,3 +47,15 @@
   justify-content: space-between;
   align-items: flex-start;
 }
+.flex-column-center-top {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.flex-column-left-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
