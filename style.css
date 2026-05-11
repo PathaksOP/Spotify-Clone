@@ -180,6 +180,28 @@ nav {
 }
 .song:hover {
   background: #1f1f1f;
+  .play-in-library-wrapper {
+    visibility: visible;
+  }
+}
+.song:not(:hover) .play-in-library-wrapper {
+  visibility: hidden;
+}
+.play-in-library-wrapper {
+  /* filter: blur(10px); */
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 53px;
+  height: 53px;
+}
+.play-in-library{
+  width: 30px !important;
 }
 .song-content-div {
   display: flex;
@@ -190,6 +212,7 @@ nav {
   justify-self: start;
 }
 .img-div {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -210,6 +233,7 @@ nav {
   letter-spacing: 0.7px;
   /* align-self: end; */
 }
+
 .sidebar-top {
   width: 94%;
   font-weight: 700;

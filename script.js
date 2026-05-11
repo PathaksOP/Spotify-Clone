@@ -47,6 +47,11 @@ const AddSongsToLibrary = (song_names) => {
     image.classList.add("img-size1");
     image.classList.add("song-img");
     document.querySelector(`#div-img-${index + 1}`).appendChild(image);
+    let svgWrapper = document.createElement("div");
+    svgWrapper.innerHTML = `<img src="assets/svg/play-in-library.svg" class="img-size1 play-in-library">`;
+    svgWrapper.classList.add("img-size1");
+    svgWrapper.classList.add("play-in-library-wrapper");
+    document.querySelector(`#div-img-${index + 1}`).appendChild(svgWrapper);
     let div3 = document.createElement("div");
     div3.classList.add("song-content-div");
     div3.setAttribute("id", `div-song-content-${index + 1}`);
