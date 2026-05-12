@@ -23,7 +23,7 @@ body {
   background: var(--body-bg);
   display: grid;
   grid-template-columns: 1fr 3fr;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto auto auto;
   grid-template-areas:
     "nav nav"
     "left right";
@@ -151,7 +151,7 @@ nav {
 .content {
   border-radius: 10px;
   padding: 15px;
-  height: 90vh;
+  height: 84vh;
 }
 .sidebar {
   position: relative;
@@ -204,7 +204,7 @@ nav {
   width: 53px;
   height: 53px;
 }
-.play-in-library{
+.play-in-library {
   width: 30px !important;
 }
 .song-content-div {
@@ -334,7 +334,16 @@ nav {
 }
 /* from 212121*/
 /* to 121212 */
-
+.play-nav {
+  width: 33.33%;
+  /* background: rgb(255, 2, 2); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 100;
+}
 .play-bar {
   width: 100%;
   position: fixed;
@@ -345,6 +354,7 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   padding: 10px;
   z-index: 100;
 }
@@ -374,4 +384,24 @@ nav {
   justify-content: center;
   align-items: center;
   gap: 20px;
+}
+.seekbar {
+  width: 100%;
+  height: 2px;
+  background: #ebebeb;
+  cursor: pointer;
+  border-radius: 100px;
+  position: relative;
+}
+.circle {
+  height: 10px;
+  width: 10px;
+  background: #ebebeb;
+  border-radius: 50%;
+  position: absolute;
+  left: 0%;
+  bottom: 50%;
+  transform: translate(-50%, 50%);
+  cursor: pointer;
+  transition: all 0.75s ease-in-out;
 }
