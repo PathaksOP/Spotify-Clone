@@ -1,4 +1,6 @@
 let currentSong = new Audio();
+// console.log(currentSong.src);
+// console.log(currentSong.currentSrc);
 async function getSongs() {
   let a = await fetch("http://127.0.0.1:3000/assets/songs/");
   let response = await a.text();
@@ -39,16 +41,18 @@ async function main(AddSongsToLibrary, AddSongsToPlaylist) {
     });
   });
   document.querySelector(".play-div").addEventListener("click", () => {
-    if (currentSong.paused) {
-      currentSong.play();
-      console.log("song is playing");
-      document.querySelector(".play-div").innerHTML =
-        `<img class="pause" src="assets/svg/pause.svg" alt="pause" />`;
-    } else {
-      currentSong.pause();
-      console.log("song is paused");
-      document.querySelector(".play-div").innerHTML =
-        `<img class="play" src="assets/svg/playbar-play.svg" alt="play" />`;
+    if (currentSong.src !== "") {
+      if (currentSong.paused) {
+        currentSong.play();
+        console.log("song is playing");
+        document.querySelector(".play-div").innerHTML =
+          `<img class="pause" src="assets/svg/pause.svg" alt="pause" />`;
+      } else {
+        currentSong.pause();
+        console.log("song is paused");
+        document.querySelector(".play-div").innerHTML =
+          `<img class="play" src="assets/svg/playbar-play.svg" alt="play" />`;
+      }
     }
   });
 }
@@ -62,17 +66,18 @@ const playMusic = (song_name) => {
 
   document.querySelector(".play-div").innerHTML =
     `<img class="pause" src="assets/svg/pause.svg" alt="pause" />`;
+    // document.querySelector(".play-in-library").src = `assets/svg/pause.svg`;
 };
 const AddSongsToLibrary = (song_names) => {
   song_names.forEach((song, index) => {
     let div = document.createElement("div");
     div.classList.add("song");
-    div.setAttribute("id", `song-${index + 1}`);
+    div.setAttribute("id", `library-${encodeURIComponent(song)}`);
     document.querySelector(".song-library").appendChild(div);
     let div2 = document.createElement("div");
     div2.classList.add("img-div");
     div2.setAttribute("id", `div-img-${index + 1}`);
-    document.querySelector(`#song-${index + 1}`).appendChild(div2);
+    document.getElementById(`library-${encodeURIComponent(song)}`).appendChild(div2);
     let image = document.createElement("img");
     image.src = `assets/SongImg/${song}.jpg`;
     image.classList.add("img-size1");
@@ -86,7 +91,7 @@ const AddSongsToLibrary = (song_names) => {
     let div3 = document.createElement("div");
     div3.classList.add("song-content-div");
     div3.setAttribute("id", `div-song-content-${index + 1}`);
-    document.querySelector(`#song-${index + 1}`).appendChild(div3);
+    document.getElementById(`library-${encodeURIComponent(song)}`).appendChild(div3);
     let div_song_name = document.createElement("div");
     // div_song_name.classList.add("song");
     div_song_name.classList.add("song-name");
@@ -109,6 +114,7 @@ const AddSongsToPlaylist = (song_names) => {
     let div = document.createElement("div");
     div.classList.add("card-bg");
     div.classList.add("flex-center");
+    div.setAttribute("id", `playlist-${encodeURIComponent(song)}`);
     div.innerHTML = `<div class="card">
               <div class="div-img-main">
                 <img
