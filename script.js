@@ -58,15 +58,25 @@ async function main(AddSongsToLibrary, AddSongsToPlaylist) {
 }
 
 const playMusic = (song_name) => {
+  document.querySelectorAll(".song").forEach((song) => {
+    song.classList.remove("active-song");
+  });
+  document.querySelectorAll(".play-in-library").forEach((song_img) => {
+    song_img.src = `assets/svg/play-in-library.svg`;
+  });
   currentSong.src = `http://127.0.0.1:3000/assets/songs/${song_name}.mp3`;
-
+  let song_name_ID = "library-" + encodeURIComponent(song_name);
+  console.log(song_name);
   currentSong.play();
 
   console.log("song is playing");
 
   document.querySelector(".play-div").innerHTML =
     `<img class="pause" src="assets/svg/pause.svg" alt="pause" />`;
-    // document.querySelector(".play-in-library").src = `assets/svg/pause.svg`;
+  document
+    .getElementById(`${song_name_ID}`)
+    .querySelector(".play-in-library").src = `assets/svg/pause-in-library.svg`;
+  document.getElementById(`${song_name_ID}`).classList.add("active-song");
 };
 const AddSongsToLibrary = (song_names) => {
   song_names.forEach((song, index) => {
@@ -77,7 +87,9 @@ const AddSongsToLibrary = (song_names) => {
     let div2 = document.createElement("div");
     div2.classList.add("img-div");
     div2.setAttribute("id", `div-img-${index + 1}`);
-    document.getElementById(`library-${encodeURIComponent(song)}`).appendChild(div2);
+    document
+      .getElementById(`library-${encodeURIComponent(song)}`)
+      .appendChild(div2);
     let image = document.createElement("img");
     image.src = `assets/SongImg/${song}.jpg`;
     image.classList.add("img-size1");
@@ -91,7 +103,9 @@ const AddSongsToLibrary = (song_names) => {
     let div3 = document.createElement("div");
     div3.classList.add("song-content-div");
     div3.setAttribute("id", `div-song-content-${index + 1}`);
-    document.getElementById(`library-${encodeURIComponent(song)}`).appendChild(div3);
+    document
+      .getElementById(`library-${encodeURIComponent(song)}`)
+      .appendChild(div3);
     let div_song_name = document.createElement("div");
     // div_song_name.classList.add("song");
     div_song_name.classList.add("song-name");

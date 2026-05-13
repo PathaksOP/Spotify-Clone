@@ -184,9 +184,13 @@ nav {
 }
 .song:hover {
   background: #1f1f1f;
+  /* transition: 0.2s ease-in-out; */
   .play-in-library-wrapper {
     visibility: visible;
   }
+}
+.active-song {
+  background-color: #1f1f1f !important;
 }
 .song:not(:hover) .play-in-library-wrapper {
   visibility: hidden;
