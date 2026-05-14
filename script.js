@@ -1,4 +1,5 @@
 let currentSong = new Audio();
+let ratio = 0;
 // console.log(currentSong.src);
 // console.log(currentSong.currentSrc);
 async function getSongs() {
@@ -60,6 +61,10 @@ async function main(AddSongsToLibrary, AddSongsToPlaylist) {
 const playMusic = (song_name) => {
   document.querySelectorAll(".song").forEach((song) => {
     song.classList.remove("active-song");
+    song.querySelector(".music-icon").classList.add("hidden");
+  });
+  document.querySelectorAll(".song *").forEach((element) => {
+    element.style.color = "white";
   });
   document.querySelectorAll(".play-in-library").forEach((song_img) => {
     song_img.src = `assets/svg/play-in-library.svg`;
@@ -77,6 +82,59 @@ const playMusic = (song_name) => {
     .getElementById(`${song_name_ID}`)
     .querySelector(".play-in-library").src = `assets/svg/pause-in-library.svg`;
   document.getElementById(`${song_name_ID}`).classList.add("active-song");
+  document
+    .getElementById(`${song_name_ID}`)
+    .querySelectorAll("*")
+    .forEach((element) => {
+      element.style.color = "#1ed760";
+    });
+  document
+    .getElementById(`${song_name_ID}`)
+    .querySelector(".music-icon")
+    .classList.remove("hidden");
+  document.querySelector(".song-info").querySelector("img").src =
+    `assets/SongImg/${song_name}.jpg`;
+  document
+    .querySelector(".song-info")
+    .querySelector(".song-info-name").innerHTML = song_name.split(" - ")[0];
+  document
+    .querySelector(".song-info")
+    .querySelector(".artist-info-name").innerHTML =
+    `- ${song_name.split(" - ")[1]}`;
+
+  document.querySelector(".current-time").innerHTML = "0:00";
+  // document.querySelector(".seekbar").querySelector(".circle").style.left = "0%";
+  currentSong.addEventListener("loadedmetadata", () => {
+    console.log(currentSong.duration);
+    if (currentSong.duration % 60 < 10) {
+      document.querySelector(".total-time").innerHTML =
+        Math.floor(currentSong.duration / 60) +
+        ":0" +
+        Math.floor(currentSong.duration % 60);
+    } else {
+      document.querySelector(".total-time").innerHTML =
+        Math.floor(currentSong.duration / 60) +
+        ":" +
+        Math.floor(currentSong.duration % 60);
+    }
+  });
+  setInterval(() => {
+  ratio = ((currentSong.currentTime / currentSong.duration) * 100);
+
+  if (currentSong.currentTime % 60 < 10) {
+    document.querySelector(".current-time").innerHTML =
+      Math.floor(currentSong.currentTime / 60) +
+      ":0" +
+      Math.floor(currentSong.currentTime % 60);
+  } else {
+    document.querySelector(".current-time").innerHTML =
+      Math.floor(currentSong.currentTime / 60) +
+      ":" +
+      Math.floor(currentSong.currentTime % 60);
+  }
+
+  document.querySelector(".circle").style.left = `${ratio}%`;
+}, 1);
 };
 const AddSongsToLibrary = (song_names) => {
   song_names.forEach((song, index) => {
@@ -120,6 +178,13 @@ const AddSongsToLibrary = (song_names) => {
     document
       .querySelector(`#div-song-content-${index + 1}`)
       .appendChild(div_artist);
+    let music_icon = document.createElement("img");
+    music_icon.src = `assets/svg/music-icon.svg`;
+    music_icon.classList.add("music-icon");
+    music_icon.classList.add("hidden");
+    document
+      .getElementById(`library-${encodeURIComponent(song)}`)
+      .appendChild(music_icon);
   });
 };
 
