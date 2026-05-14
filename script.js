@@ -59,6 +59,7 @@ async function main(AddSongsToLibrary, AddSongsToPlaylist) {
 }
 
 const playMusic = (song_name) => {
+  document.querySelector(".song-info").classList.remove("hidden");
   document.querySelectorAll(".song").forEach((song) => {
     song.classList.remove("active-song");
     song.querySelector(".music-icon").classList.add("hidden");
@@ -119,22 +120,29 @@ const playMusic = (song_name) => {
     }
   });
   setInterval(() => {
-  ratio = ((currentSong.currentTime / currentSong.duration) * 100);
+    ratio = (currentSong.currentTime / currentSong.duration) * 100;
 
-  if (currentSong.currentTime % 60 < 10) {
-    document.querySelector(".current-time").innerHTML =
-      Math.floor(currentSong.currentTime / 60) +
-      ":0" +
-      Math.floor(currentSong.currentTime % 60);
-  } else {
-    document.querySelector(".current-time").innerHTML =
-      Math.floor(currentSong.currentTime / 60) +
-      ":" +
-      Math.floor(currentSong.currentTime % 60);
-  }
+    if (currentSong.currentTime % 60 < 10) {
+      document.querySelector(".current-time").innerHTML =
+        Math.floor(currentSong.currentTime / 60) +
+        ":0" +
+        Math.floor(currentSong.currentTime % 60);
+    } else {
+      document.querySelector(".current-time").innerHTML =
+        Math.floor(currentSong.currentTime / 60) +
+        ":" +
+        Math.floor(currentSong.currentTime % 60);
+    }
+    document.querySelector(".seekbar-song-duration").style.width = `${ratio}%`;
 
-  document.querySelector(".circle").style.left = `${ratio}%`;
-}, 1);
+    document.querySelector(".circle").style.left = `${ratio}%`;
+  }, 1);
+  document.querySelector(".seekbar-overlay").addEventListener("click", (e) => {
+    let ratio =
+      (e.offsetX / document.querySelector(".seekbar").offsetWidth) * 100;
+    document.querySelector(".circle").style.left = `${ratio}%`;
+    currentSong.currentTime = (ratio / 100) * currentSong.duration;
+  });
 };
 const AddSongsToLibrary = (song_names) => {
   song_names.forEach((song, index) => {
@@ -215,24 +223,22 @@ const AddSongsToPlaylist = (song_names) => {
 
 main(AddSongsToLibrary, AddSongsToPlaylist);
 
-// document.querySelector(".play-div").addEventListener("click", async () => {
-//   let songs = await getSongs();
-
-//   if (!audio) {
-//     audio = new Audio(songs[0]);
-
-//     audio.addEventListener("loadeddata", () => {
-//       console.log(audio.duration);
-//       console.log(audio.currentTime);
-//       console.log(audio.currentSrc);
-//     });
-//   }
-
-//   if (audio.paused) {
-//     await audio.play();
-//     console.log("audio is playing");
-//   } else {
-//     audio.pause();
-//     console.log("audio is paused");
-//   }
-// });
+document
+  .querySelector(".seekbar-overlay")
+  .addEventListener("mousemove", (e) => {
+    console.log(document.querySelector(".seekbar-overlay").offsetWidth);
+    console.log(e.clientX, e.offsetX);
+    let seekbarRatio =
+      (e.offsetX / document.querySelector(".seekbar-overlay").offsetWidth) *
+      100;
+    document.querySelector(".seekbar-follower").style.width =
+      `${seekbarRatio}%`;
+    document.querySelector(".seekbar-song-duration").style.background =
+      "#1ed760";
+      document.querySelector(".circle").classList.remove("hidden");
+  });
+document.querySelector(".seekbar-overlay").addEventListener("mouseout", (e) => {
+  document.querySelector(".seekbar-follower").style.width = `0%`;
+  document.querySelector(".seekbar-song-duration").style.background = "#ffffff";
+  document.querySelector(".circle").classList.add("hidden");
+});

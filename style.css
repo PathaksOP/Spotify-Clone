@@ -366,14 +366,16 @@ nav {
   padding: 10px;
   z-index: 100;
 }
-.song-info, .song-controls {
+.song-info,
+.song-controls {
   background: rgb(84, 84, 84);
   padding: 10px;
   border-radius: 10px;
   /* width: 100%; */
   /* height: 10px; */
-}.song-info {
-  display:grid;
+}
+.song-info {
+  display: grid;
   grid-template-columns: auto 1fr;
   justify-items: center;
   align-items: center;
@@ -410,11 +412,26 @@ nav {
 }
 .seekbar {
   width: 100%;
-  height: 2px;
-  background: #ebebeb;
+  height: 4px;
+  background: #ebebeb75;
   cursor: pointer;
   border-radius: 100px;
   position: relative;
+}
+.seekbar-overlay {
+  width: 100%;
+  height: 1800%;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  /* background: #ff00008d; */
+  border-radius: 100px;
+}
+.seekbar-overlay:hover {
+  .seekbar-song-duration {
+    background-color: #1ed760 !important;
+  }
 }
 .circle {
   height: 10px;
@@ -426,6 +443,7 @@ nav {
   bottom: 50%;
   transform: translate(-50%, 50%);
   cursor: pointer;
+  z-index: 10000;
   /* transition: all 0.75s ease-in-out; */
 }
 .song-info-div {
@@ -434,7 +452,7 @@ nav {
   gap: 5px;
   justify-self: start;
 }
-.song-info-div-names{
+.song-info-div-names {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -452,4 +470,26 @@ nav {
   justify-content: center;
   align-items: center;
   gap: 10px;
+}
+.seekbar-follower {
+  width: 0%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  background: #ffffffb1;
+  border-radius: 100px;
+  z-index: 1000;
+}
+.seekbar-song-duration {
+  width: 0%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  background: #ffffff;
+  border-radius: 100px;
+  z-index: 10000;
 }
