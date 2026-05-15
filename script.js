@@ -3,8 +3,9 @@ let ratio = 0;
 // console.log(currentSong.src);
 // console.log(currentSong.currentSrc);
 async function getSongs() {
-  let a = await fetch("http://127.0.0.1:3000/assets/songs/");
+  let a = await fetch("assets/songs/");
   let response = await a.text();
+  console.log(response);
   let div = document.createElement("div");
   div.innerHTML = response;
 
@@ -22,14 +23,15 @@ async function main(AddSongsToLibrary, AddSongsToPlaylist) {
   let songs = await getSongs();
   let song_names = [];
   songs.forEach((song, index) => {
+    console.log(song.split("songs%5C")[1]);
     let song_name = song
       .split("songs%5C")[1]
       .replaceAll("%20", " ")
       .replace(".mp3", "");
     song_names.push(song_name);
   });
-  // console.log(songs);
-  // console.log(song_names);
+  console.log(songs);
+  console.log(song_names);
 
   AddSongsToLibrary(song_names);
   AddSongsToPlaylist(song_names);
@@ -143,6 +145,28 @@ const playMusic = (song_name) => {
     document.querySelector(".circle").style.left = `${ratio}%`;
     currentSong.currentTime = (ratio / 100) * currentSong.duration;
   });
+  document
+    .querySelector(".seekbar-overlay")
+    .addEventListener("mousemove", (e) => {
+      console.log(document.querySelector(".seekbar-overlay").offsetWidth);
+      console.log(e.clientX, e.offsetX);
+      let seekbarRatio =
+        (e.offsetX / document.querySelector(".seekbar-overlay").offsetWidth) *
+        100;
+      document.querySelector(".seekbar-follower").style.width =
+        `${seekbarRatio}%`;
+      document.querySelector(".seekbar-song-duration").style.background =
+        "#1ed760";
+      document.querySelector(".circle").classList.remove("hidden");
+    });
+  document
+    .querySelector(".seekbar-overlay")
+    .addEventListener("mouseout", (e) => {
+      document.querySelector(".seekbar-follower").style.width = `0%`;
+      document.querySelector(".seekbar-song-duration").style.background =
+        "#ffffff";
+      document.querySelector(".circle").classList.add("hidden");
+    });
 };
 const AddSongsToLibrary = (song_names) => {
   song_names.forEach((song, index) => {
@@ -222,23 +246,3 @@ const AddSongsToPlaylist = (song_names) => {
 };
 
 main(AddSongsToLibrary, AddSongsToPlaylist);
-
-document
-  .querySelector(".seekbar-overlay")
-  .addEventListener("mousemove", (e) => {
-    console.log(document.querySelector(".seekbar-overlay").offsetWidth);
-    console.log(e.clientX, e.offsetX);
-    let seekbarRatio =
-      (e.offsetX / document.querySelector(".seekbar-overlay").offsetWidth) *
-      100;
-    document.querySelector(".seekbar-follower").style.width =
-      `${seekbarRatio}%`;
-    document.querySelector(".seekbar-song-duration").style.background =
-      "#1ed760";
-      document.querySelector(".circle").classList.remove("hidden");
-  });
-document.querySelector(".seekbar-overlay").addEventListener("mouseout", (e) => {
-  document.querySelector(".seekbar-follower").style.width = `0%`;
-  document.querySelector(".seekbar-song-duration").style.background = "#ffffff";
-  document.querySelector(".circle").classList.add("hidden");
-});
