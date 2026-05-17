@@ -61,10 +61,10 @@ async function main(AddSongsToLibrary, AddSongsToPlaylist) {
 }
 
 const playMusic = (song_name) => {
-  document.querySelector(".song-info").classList.remove("hidden");
+  document.querySelector(".song-info").classList.remove("visibility-hidden");
   document.querySelectorAll(".song").forEach((song) => {
     song.classList.remove("active-song");
-    song.querySelector(".music-icon").classList.add("hidden");
+    song.querySelector(".music-icon").classList.add("visibility-hidden");
   });
   document.querySelectorAll(".song *").forEach((element) => {
     element.style.color = "white";
@@ -72,6 +72,8 @@ const playMusic = (song_name) => {
   document.querySelectorAll(".play-in-library").forEach((song_img) => {
     song_img.src = `assets/svg/play-in-library.svg`;
   });
+  document.querySelector(".current-time").classList.remove("visibility-hidden");
+  document.querySelector(".total-time").classList.remove("visibility-hidden");
   currentSong.src = `http://127.0.0.1:3000/assets/songs/${song_name}.mp3`;
   let song_name_ID = "library-" + encodeURIComponent(song_name);
   console.log(song_name);
@@ -94,7 +96,7 @@ const playMusic = (song_name) => {
   document
     .getElementById(`${song_name_ID}`)
     .querySelector(".music-icon")
-    .classList.remove("hidden");
+    .classList.remove("visibility-hidden");
   document.querySelector(".song-info").querySelector("img").src =
     `assets/SongImg/${song_name}.jpg`;
   document
@@ -138,7 +140,7 @@ const playMusic = (song_name) => {
     document.querySelector(".seekbar-song-duration").style.width = `${ratio}%`;
 
     document.querySelector(".circle").style.left = `${ratio}%`;
-  }, 1);
+  }, 20);
   document.querySelector(".seekbar-overlay").addEventListener("click", (e) => {
     let ratio =
       (e.offsetX / document.querySelector(".seekbar").offsetWidth) * 100;
@@ -157,7 +159,7 @@ const playMusic = (song_name) => {
         `${seekbarRatio}%`;
       document.querySelector(".seekbar-song-duration").style.background =
         "#1ed760";
-      document.querySelector(".circle").classList.remove("hidden");
+      document.querySelector(".circle").classList.remove("visibility-hidden");
     });
   document
     .querySelector(".seekbar-overlay")
@@ -165,7 +167,29 @@ const playMusic = (song_name) => {
       document.querySelector(".seekbar-follower").style.width = `0%`;
       document.querySelector(".seekbar-song-duration").style.background =
         "#ffffff";
-      document.querySelector(".circle").classList.add("hidden");
+      document.querySelector(".circle").classList.add("visibility-hidden");
+    });
+  document
+    .querySelector(".seekbar")
+    .addEventListener("mousemove", (e) => {
+      console.log(document.querySelector(".seekbar").offsetWidth);
+      console.log(e.clientX, e.offsetX);
+      let seekbarRatio =
+        (e.offsetX / document.querySelector(".seekbar").offsetWidth) *
+        100;
+      document.querySelector(".seekbar-follower").style.width =
+        `${seekbarRatio}%`;
+      document.querySelector(".seekbar-song-duration").style.background =
+        "#1ed760";
+      document.querySelector(".circle").classList.remove("visibility-hidden");
+    });
+  document
+    .querySelector(".seekbar")
+    .addEventListener("mouseout", (e) => {
+      document.querySelector(".seekbar-follower").style.width = `0%`;
+      document.querySelector(".seekbar-song-duration").style.background =
+        "#ffffff";
+      document.querySelector(".circle").classList.add("visibility-hidden");
     });
 };
 const AddSongsToLibrary = (song_names) => {
@@ -213,7 +237,7 @@ const AddSongsToLibrary = (song_names) => {
     let music_icon = document.createElement("img");
     music_icon.src = `assets/svg/music-icon.svg`;
     music_icon.classList.add("music-icon");
-    music_icon.classList.add("hidden");
+    music_icon.classList.add("visibility-hidden");
     document
       .getElementById(`library-${encodeURIComponent(song)}`)
       .appendChild(music_icon);

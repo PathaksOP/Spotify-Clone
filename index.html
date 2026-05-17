@@ -100,7 +100,7 @@
       </div>
     </div>
     <div class="play-bar">
-      <div class="song-info hidden">
+      <div class="song-info visibility-hidden">
         <img
           src="assets/SongImg/Ambient Electronica - Alex Morgan.jpg"
           class="img-size1"
@@ -166,14 +166,15 @@
           </svg>
         </div>
         <div class="seekbar-div">
-          <div class="current-time"></div>
-          <div class="seekbar">
-            <div class="seekbar-follower"></div>
-            <div class="seekbar-song-duration"></div>
-            <div class="seekbar-overlay"></div>
-            <div class="circle hidden"></div>
+          <div class="current-time visibility-hidden">0:00</div>
+          <div class="seekbar-overlay">
+            <div class="seekbar">
+              <div class="seekbar-follower"></div>
+              <div class="circle visibility-hidden" draggable="true"></div>
+              <div class="seekbar-song-duration"></div>
+            </div>
           </div>
-          <div class="total-time"></div>
+          <div class="total-time visibility-hidden">0:00</div>
         </div>
       </div>
       <div class="song-controls"></div>

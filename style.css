@@ -368,7 +368,7 @@ nav {
 }
 .song-info,
 .song-controls {
-  background: rgb(84, 84, 84);
+  background: rgb(53 53 53);
   padding: 10px;
   border-radius: 10px;
   /* width: 100%; */
@@ -412,21 +412,22 @@ nav {
 }
 .seekbar {
   width: 100%;
-  height: 4px;
+  height: 10%;
   background: #ebebeb75;
-  cursor: pointer;
+
   border-radius: 100px;
-  position: relative;
-}
-.seekbar-overlay {
-  width: 100%;
-  height: 1800%;
   position: absolute;
   top: 50%;
   left: 0;
   transform: translateY(-50%);
+}
+.seekbar-overlay {
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+  height: 35px;
   /* background: #ff00008d; */
-  border-radius: 100px;
+  /* border-radius: 100px; */
 }
 .seekbar-overlay:hover {
   .seekbar-song-duration {
@@ -466,8 +467,9 @@ nav {
 }
 .seekbar-div {
   width: 100%;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  justify-items: center;
   align-items: center;
   gap: 10px;
 }
@@ -482,7 +484,7 @@ nav {
   border-radius: 100px;
   z-index: 1000;
 }
-.seekbar-song-duration {
+/* .seekbar-song-duration {
   width: 0%;
   height: 100%;
   position: absolute;
@@ -492,4 +494,4 @@ nav {
   background: #ffffff;
   border-radius: 100px;
   z-index: 10000;
-}
+} */
