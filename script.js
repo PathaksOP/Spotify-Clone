@@ -2,10 +2,12 @@ let currentSong = new Audio();
 let ratio = 0;
 // console.log(currentSong.src);
 // console.log(currentSong.currentSrc);
+
+// gets songs
 async function getSongs() {
   let a = await fetch("assets/songs/");
   let response = await a.text();
-  console.log(response);
+  // console.log(response);
   let div = document.createElement("div");
   div.innerHTML = response;
 
@@ -19,30 +21,35 @@ async function getSongs() {
   return songs;
 }
 
+// Initialises everything
 async function main(AddSongsToLibrary, AddSongsToPlaylist) {
+  // converts songs into readable format
   let songs = await getSongs();
   let song_names = [];
   songs.forEach((song, index) => {
-    console.log(song.split("songs%5C")[1]);
+    // console.log(song.split("songs%5C")[1]);
     let song_name = song
       .split("songs%5C")[1]
       .replaceAll("%20", " ")
       .replace(".mp3", "");
     song_names.push(song_name);
   });
-  console.log(songs);
-  console.log(song_names);
+  // console.log(songs);
+  // console.log(song_names);
 
+  // add songs to the UI
   AddSongsToLibrary(song_names);
   AddSongsToPlaylist(song_names);
 
+  // to detect when song in library is clicked
   document.querySelectorAll(".song").forEach((song, index) => {
     song.addEventListener("click", () => {
       let song_name_ID = `${song.querySelector(".song-name").innerHTML} - ${song.querySelector(".song-artist").innerHTML}`;
-      console.log(song_name_ID);
+      // console.log(song_name_ID);
       playMusic(song_name_ID);
     });
   });
+  // to detect when the play/pause button is clicked
   document.querySelector(".play-div").addEventListener("click", () => {
     if (currentSong.src !== "") {
       if (currentSong.paused) {
@@ -61,6 +68,7 @@ async function main(AddSongsToLibrary, AddSongsToPlaylist) {
 }
 
 const playMusic = (song_name) => {
+  // Initialises everything
   document.querySelector(".song-info").classList.remove("visibility-hidden");
   document.querySelectorAll(".song").forEach((song) => {
     song.classList.remove("active-song");
@@ -74,29 +82,35 @@ const playMusic = (song_name) => {
   });
   document.querySelector(".current-time").classList.remove("visibility-hidden");
   document.querySelector(".total-time").classList.remove("visibility-hidden");
+  // sets the song
   currentSong.src = `http://127.0.0.1:3000/assets/songs/${song_name}.mp3`;
+  // creates a unique song id
   let song_name_ID = "library-" + encodeURIComponent(song_name);
   console.log(song_name);
   currentSong.play();
-
   console.log("song is playing");
-
+  // adds pause icon to play-bar
   document.querySelector(".play-div").innerHTML =
     `<img class="pause" src="assets/svg/pause.svg" alt="pause" />`;
+  // adds pause icon to song
   document
     .getElementById(`${song_name_ID}`)
     .querySelector(".play-in-library").src = `assets/svg/pause-in-library.svg`;
+  // changes the active song
   document.getElementById(`${song_name_ID}`).classList.add("active-song");
+  // highlights the active song text
   document
     .getElementById(`${song_name_ID}`)
     .querySelectorAll("*")
     .forEach((element) => {
       element.style.color = "#1ed760";
     });
+  // displays the music icon
   document
     .getElementById(`${song_name_ID}`)
     .querySelector(".music-icon")
     .classList.remove("visibility-hidden");
+  // displays the song info
   document.querySelector(".song-info").querySelector("img").src =
     `assets/SongImg/${song_name}.jpg`;
   document
@@ -106,9 +120,9 @@ const playMusic = (song_name) => {
     .querySelector(".song-info")
     .querySelector(".artist-info-name").innerHTML =
     `- ${song_name.split(" - ")[1]}`;
-
+  // sets the current time to 0:00
   document.querySelector(".current-time").innerHTML = "0:00";
-  // document.querySelector(".seekbar").querySelector(".circle").style.left = "0%";
+  // sets the total time
   currentSong.addEventListener("loadedmetadata", () => {
     console.log(currentSong.duration);
     if (currentSong.duration % 60 < 10) {
@@ -123,6 +137,7 @@ const playMusic = (song_name) => {
         Math.floor(currentSong.duration % 60);
     }
   });
+  // updates the current time and seekbar-song-duration
   setInterval(() => {
     ratio = (currentSong.currentTime / currentSong.duration) * 100;
 
@@ -137,21 +152,24 @@ const playMusic = (song_name) => {
         ":" +
         Math.floor(currentSong.currentTime % 60);
     }
+    // console.log(ratio);
     document.querySelector(".seekbar-song-duration").style.width = `${ratio}%`;
 
     document.querySelector(".circle").style.left = `${ratio}%`;
   }, 20);
+  // updates ratio when clicked on seekbar-overlay
   document.querySelector(".seekbar-overlay").addEventListener("click", (e) => {
     let ratio =
       (e.offsetX / document.querySelector(".seekbar").offsetWidth) * 100;
     document.querySelector(".circle").style.left = `${ratio}%`;
     currentSong.currentTime = (ratio / 100) * currentSong.duration;
   });
+  // updates seekbar-follower when mouse moves and seekbar-song-duration to green color and shows circle
   document
     .querySelector(".seekbar-overlay")
     .addEventListener("mousemove", (e) => {
-      console.log(document.querySelector(".seekbar-overlay").offsetWidth);
-      console.log(e.clientX, e.offsetX);
+      // console.log(document.querySelector(".seekbar-overlay").offsetWidth);
+      // console.log(e.clientX, e.offsetX);
       let seekbarRatio =
         (e.offsetX / document.querySelector(".seekbar-overlay").offsetWidth) *
         100;
@@ -161,6 +179,7 @@ const playMusic = (song_name) => {
         "#1ed760";
       document.querySelector(".circle").classList.remove("visibility-hidden");
     });
+  // updates seekbar-follower when mouse leaves and seekbar-song-duration to white color and hides circle
   document
     .querySelector(".seekbar-overlay")
     .addEventListener("mouseout", (e) => {
@@ -169,28 +188,24 @@ const playMusic = (song_name) => {
         "#ffffff";
       document.querySelector(".circle").classList.add("visibility-hidden");
     });
-  document
-    .querySelector(".seekbar")
-    .addEventListener("mousemove", (e) => {
-      console.log(document.querySelector(".seekbar").offsetWidth);
-      console.log(e.clientX, e.offsetX);
-      let seekbarRatio =
-        (e.offsetX / document.querySelector(".seekbar").offsetWidth) *
-        100;
-      document.querySelector(".seekbar-follower").style.width =
-        `${seekbarRatio}%`;
-      document.querySelector(".seekbar-song-duration").style.background =
-        "#1ed760";
-      document.querySelector(".circle").classList.remove("visibility-hidden");
-    });
-  document
-    .querySelector(".seekbar")
-    .addEventListener("mouseout", (e) => {
-      document.querySelector(".seekbar-follower").style.width = `0%`;
-      document.querySelector(".seekbar-song-duration").style.background =
-        "#ffffff";
-      document.querySelector(".circle").classList.add("visibility-hidden");
-    });
+  // same with seekbar
+  document.querySelector(".seekbar").addEventListener("mousemove", (e) => {
+    // console.log(document.querySelector(".seekbar").offsetWidth);
+    // console.log(e.clientX, e.offsetX);
+    let seekbarRatio =
+      (e.offsetX / document.querySelector(".seekbar").offsetWidth) * 100;
+    document.querySelector(".seekbar-follower").style.width =
+      `${seekbarRatio}%`;
+    document.querySelector(".seekbar-song-duration").style.background =
+      "#1ed760";
+    document.querySelector(".circle").classList.remove("visibility-hidden");
+  });
+  document.querySelector(".seekbar").addEventListener("mouseout", (e) => {
+    document.querySelector(".seekbar-follower").style.width = `0%`;
+    document.querySelector(".seekbar-song-duration").style.background =
+      "#ffffff";
+    document.querySelector(".circle").classList.add("visibility-hidden");
+  });
 };
 const AddSongsToLibrary = (song_names) => {
   song_names.forEach((song, index) => {

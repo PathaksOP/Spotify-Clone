@@ -348,7 +348,7 @@ nav {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 10px;
+  /* gap: 10px; */
   z-index: 100;
 }
 .play-bar {
@@ -412,7 +412,7 @@ nav {
 }
 .seekbar {
   width: 100%;
-  height: 10%;
+  height: 14%;
   background: #ebebeb75;
 
   border-radius: 100px;
@@ -425,7 +425,7 @@ nav {
   position: relative;
   cursor: pointer;
   width: 100%;
-  height: 35px;
+  height: 25px;
   /* background: #ff00008d; */
   /* border-radius: 100px; */
 }
@@ -484,7 +484,7 @@ nav {
   border-radius: 100px;
   z-index: 1000;
 }
-/* .seekbar-song-duration {
+.seekbar-song-duration {
   width: 0%;
   height: 100%;
   position: absolute;
@@ -494,4 +494,4 @@ nav {
   background: #ffffff;
   border-radius: 100px;
   z-index: 10000;
-} */
+}
