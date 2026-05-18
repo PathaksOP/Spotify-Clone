@@ -46,9 +46,18 @@ nav {
   align-items: center;
   gap: 15px;
 }
-
 .logo {
-  margin-right: 8px;
+  gap: 10px;
+}
+.logo-img  {
+  /* margin-right: 8px; */
+  width: 38px !important;
+
+}.logo-name {
+  width: 100px !important;
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  font-size: 25px;
 }
 .home-button {
   display: flex;
