@@ -285,3 +285,13 @@ const AddSongsToPlaylist = (song_names) => {
 };
 
 main(AddSongsToLibrary, AddSongsToPlaylist);
+// let i = 0;
+// document.querySelector(".library-close").addEventListener("click", () => {
+//   if (i === 0) {
+//     document.querySelector(".sidebar").style.left = "-104%";
+//     i++;
+//   } else {
+//     document.querySelector(".sidebar").style.left = "0%";
+//     i--;
+//   }
+// });
