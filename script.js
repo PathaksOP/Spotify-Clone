@@ -295,3 +295,9 @@ main(AddSongsToLibrary, AddSongsToPlaylist);
 //     i--;
 //   }
 // });
+document.querySelector(".hamburger-icon").addEventListener("mouseover", (icon) => {
+icon.src = "assets/svg/library-open.svg";
+});
+document.querySelector(".hamburger-icon").addEventListener("mouseout", (icon) => {
+icon.src = "assets/svg/hamburger.svg";
+});

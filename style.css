@@ -188,17 +188,25 @@ nav {
 @media (max-width: 1000px) {
   .sidebar {
     background: red !important;
-    position: absolute;
-    left: -104%;
+    position: absolute !important;
+    transform: translate(-100%);
+    height: calc(100vh - 102px) !important;
+    /* height: 100vh !important; */
     transition: all 0.2s ease-in-out;
-    z-index: 3;
+    z-index: 10000000;
   }
   body {
-    grid-template-columns: 100%;
-    grid-template-rows: auto auto auto;
+    display: grid;
+    grid-template-columns: 50px 3fr;
+    grid-template-rows: auto auto;
     grid-template-areas:
-      "nav"
-      "right";
+      "nav nav"
+      "hamburger right";
+    margin: 0;
+  }
+  .hamburger-menu {
+    grid-area: hamburger;
+    display: flex !important;
   }
 }
 .content {
@@ -229,7 +237,7 @@ nav {
 .content {
   border-radius: 10px;
   padding: 15px;
-  height: 84vh;
+  height: calc(100vh - 102px - 58px);
 }
 .sidebar {
   position: relative;
@@ -560,7 +568,7 @@ nav {
   transform: translateY(-50%);
   background: #ffffffb1;
   border-radius: 100px;
-  z-index: 1000;
+  z-index: 100;
 }
 .seekbar-song-duration {
   width: 0%;
@@ -571,5 +579,23 @@ nav {
   transform: translateY(-50%);
   background: #ffffff;
   border-radius: 100px;
-  z-index: 10000;
+  z-index: 100;
+}
+.hamburger-menu {
+  height: 100%;
+  width: 100%;
+  background: #121212;
+  position: relative;
+  z-index: 1000000;
+  
+  border-radius: 10px;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;display: none;
+}
+.hamburger-icon {
+  padding-top: 10px;
+  width: 20px;
+  cursor: pointer;
 }
