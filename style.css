@@ -189,7 +189,7 @@ nav {
   .sidebar {
     /* background: red !important; */
     position: absolute !important;
-    transform: translate(-100%);
+    transform: translate(-100%, 56px);
     height: calc(100vh - 102px) !important;
     /* height: 100vh !important; */
     transition: all 0.2s ease-in-out;
@@ -246,6 +246,7 @@ nav {
   justify-content: center;
   gap: 10px;
   background: #121212;
+  transition: all 0.2s ease-in-out;
 }
 .song-library {
   /* background: rebeccapurple; */
@@ -593,7 +594,7 @@ nav {
   justify-content: start;
   align-items: center;
   gap: 20px;
-  display: none;
+  display: flex;
 }
 .hamburger-song-img {
   width: 40px;

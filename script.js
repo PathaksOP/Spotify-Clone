@@ -42,6 +42,7 @@ async function main(AddSongsToLibrary, AddSongsToPlaylist) {
   AddSongsToPlaylist(song_names);
   AddSongsToHamburger(song_names);
   OpenLibrary();
+  CloseLibrary();
 
   // to detect when song in library is clicked
   document.querySelectorAll(".song").forEach((song, index) => {
@@ -291,16 +292,44 @@ const AddSongsToHamburger = (song_names) => {
     image.src = `assets/SongImg/${song}.jpg`;
     image.classList.add("hamburger-song-img");
     document.querySelector(".hamburger-song").appendChild(image);
-    
-  })
+  });
 };
 
 const OpenLibrary = () => {
+  document.querySelector(".hamburger-menu").classList.add("display-none");
   document.querySelector(".hamburger-icon").addEventListener("click", () => {
     console.log("clicked");
-    document.querySelector(".hamburger-menu").classList.add("visibility-hidden");
-    document.querySelector(".sidebar").style.transform = "translate(0%)";
-  })
+    document.querySelector(".hamburger-menu").classList.add("display-none");
+
+    if (window.innerWidth >= 1000) {
+      document.body.style.setProperty("grid-template-columns", "1fr 3fr");
+      document.querySelector(".sidebar").classList.remove("display-none");
+      document.querySelector(".sidebar").style.transform = "translate(0,0)";
+    } else {
+      document.querySelector(".sidebar").style.transform = "translate(0%,56px)";
+    }
+  });
+};
+const CloseLibrary = () => {
+  document.querySelector(".library-close").addEventListener("click", () => {
+    console.log("clicked");
+    document.querySelector(".sidebar").style.transform =
+      "translate(-102%,56px)";
+    // document
+    //   .querySelector(".sidebar")
+    //   .setProperty("transition", "all 0.2s ease-in-out", "important");
+    document.querySelector(".sidebar").classList.add("display-none");
+    document.querySelector(".hamburger-menu").classList.remove("display-none");
+    if (window.innerWidth >= 1000) {
+      document
+        .querySelector(".hamburger-menu")
+        .classList.remove("display-none");
+      document
+        .querySelector(".hamburger-menu")
+        .style.setProperty("grid-area", "left");
+      document.body.style.setProperty("grid-template-columns", "50px 3fr");
+    }
+  });
 };
 main(AddSongsToLibrary, AddSongsToPlaylist);
 // let i = 0;
