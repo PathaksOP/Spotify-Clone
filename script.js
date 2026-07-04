@@ -35,11 +35,13 @@ async function main(AddSongsToLibrary, AddSongsToPlaylist) {
     song_names.push(song_name);
   });
   // console.log(songs);
-  // console.log(song_names);
+  console.log(song_names);
 
   // add songs to the UI
   AddSongsToLibrary(song_names);
   AddSongsToPlaylist(song_names);
+  AddSongsToHamburger(song_names);
+  OpenLibrary();
 
   // to detect when song in library is clicked
   document.querySelectorAll(".song").forEach((song, index) => {
@@ -283,7 +285,23 @@ const AddSongsToPlaylist = (song_names) => {
     document.querySelector(".cardContainer").appendChild(div);
   });
 };
+const AddSongsToHamburger = (song_names) => {
+  song_names.forEach((song) => {
+    let image = document.createElement("img");
+    image.src = `assets/SongImg/${song}.jpg`;
+    image.classList.add("hamburger-song-img");
+    document.querySelector(".hamburger-song").appendChild(image);
+    
+  })
+};
 
+const OpenLibrary = () => {
+  document.querySelector(".hamburger-icon").addEventListener("click", () => {
+    console.log("clicked");
+    document.querySelector(".hamburger-menu").classList.add("visibility-hidden");
+    document.querySelector(".sidebar").style.transform = "translate(0%)";
+  })
+};
 main(AddSongsToLibrary, AddSongsToPlaylist);
 // let i = 0;
 // document.querySelector(".library-close").addEventListener("click", () => {
@@ -295,9 +313,9 @@ main(AddSongsToLibrary, AddSongsToPlaylist);
 //     i--;
 //   }
 // });
-document.querySelector(".hamburger-icon").addEventListener("mouseover", (icon) => {
-icon.src = "assets/svg/library-open.svg";
-});
-document.querySelector(".hamburger-icon").addEventListener("mouseout", (icon) => {
-icon.src = "assets/svg/hamburger.svg";
-});
+// document.querySelector(".hamburger-icon").addEventListener("mouseover", (icon) => {
+// icon.src = "assets/svg/library-open.svg";
+// });
+// document.querySelector(".hamburger-icon").addEventListener("mouseout", (icon) => {
+// icon.src = "assets/svg/hamburger.svg";
+// });
