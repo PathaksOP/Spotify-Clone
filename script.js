@@ -68,6 +68,47 @@ async function main(AddSongsToLibrary, AddSongsToPlaylist) {
       }
     }
   });
+  // to detect when the previous/next button is clicked
+
+  document.querySelector(".previous").addEventListener("click", () => {
+    console.log(
+      currentSong.src
+        .split("songs/")[1]
+        .replaceAll("%20", " ")
+        .replace(".mp3", ""),
+    );
+    let index = song_names.indexOf(
+      currentSong.src
+        .split("songs/")[1]
+        .replaceAll("%20", " ")
+        .replace(".mp3", ""),
+    );
+    console.log(index);
+    if (index - 1 >= 0) {
+      playMusic(song_names[index - 1]);
+    }
+    // console.log(song_names)
+    // console.log(song_names[index-1]);
+    // console.log(song_names);
+  });
+  document.querySelector(".next").addEventListener("click", () => {
+    console.log(
+      currentSong.src
+        .split("songs/")[1]
+        .replaceAll("%20", " ")
+        .replace(".mp3", ""),
+    );
+    let index = song_names.indexOf(
+      currentSong.src
+        .split("songs/")[1]
+        .replaceAll("%20", " ")
+        .replace(".mp3", ""),
+    );
+    console.log(index);
+    if (index + 1 < song_names.length) {
+      playMusic(song_names[index + 1]);
+    }
+  });
 }
 
 const playMusic = (song_name) => {
@@ -300,13 +341,16 @@ const OpenLibrary = () => {
   document.querySelector(".hamburger-icon").addEventListener("click", () => {
     console.log("clicked");
     document.querySelector(".hamburger-menu").classList.add("display-none");
-
+    document.querySelector(".sidebar").classList.remove("display-none");
     if (window.innerWidth >= 1000) {
       document.body.style.setProperty("grid-template-columns", "1fr 3fr");
-      document.querySelector(".sidebar").classList.remove("display-none");
+
       document.querySelector(".sidebar").style.transform = "translate(0,0)";
+      // console.log("if");
     } else {
       document.querySelector(".sidebar").style.transform = "translate(0%,56px)";
+
+      // console.log("else");
     }
   });
 };
@@ -315,9 +359,6 @@ const CloseLibrary = () => {
     console.log("clicked");
     document.querySelector(".sidebar").style.transform =
       "translate(-102%,56px)";
-    // document
-    //   .querySelector(".sidebar")
-    //   .setProperty("transition", "all 0.2s ease-in-out", "important");
     document.querySelector(".sidebar").classList.add("display-none");
     document.querySelector(".hamburger-menu").classList.remove("display-none");
     if (window.innerWidth >= 1000) {
@@ -331,6 +372,7 @@ const CloseLibrary = () => {
     }
   });
 };
+
 main(AddSongsToLibrary, AddSongsToPlaylist);
 // let i = 0;
 // document.querySelector(".library-close").addEventListener("click", () => {
