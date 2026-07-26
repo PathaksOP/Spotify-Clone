@@ -373,20 +373,67 @@ const CloseLibrary = () => {
   });
 };
 
-main(AddSongsToLibrary, AddSongsToPlaylist);
-// let i = 0;
-// document.querySelector(".library-close").addEventListener("click", () => {
-//   if (i === 0) {
-//     document.querySelector(".sidebar").style.left = "-104%";
-//     i++;
-//   } else {
-//     document.querySelector(".sidebar").style.left = "0%";
-//     i--;
-//   }
-// });
-// document.querySelector(".hamburger-icon").addEventListener("mouseover", (icon) => {
-// icon.src = "assets/svg/library-open.svg";
-// });
-// document.querySelector(".hamburger-icon").addEventListener("mouseout", (icon) => {
-// icon.src = "assets/svg/hamburger.svg";
-// });
+main(
+  AddSongsToLibrary,
+  AddSongsToPlaylist,
+  AddSongsToHamburger,
+  OpenLibrary,
+  CloseLibrary,
+);
+
+// volume control
+
+document.querySelector(".volume-icon").addEventListener("click", () => {
+  console.log("clicked");
+  if (document.querySelector(".volume-icon").src == `assets/svg/mute.svg`) {
+    console.log("Increasing volume");
+    document.querySelector(".volume-icon").src = `assets/svg/full-volume.svg`;
+    document.querySelector(".volume-circle").style.setProperty("left", "100%");
+    document
+      .querySelector(".current-volume")
+      .style.setProperty("width", "100%");
+    currentSong.volume = 1;
+  } else if (
+    document.querySelector(".volume-icon").src == `assets/svg/full-volume.svg`
+  ) {
+    console.log("Decreasing volume");
+    document.querySelector(".volume-icon").src = `assets/svg/mute.svg`;
+    document.querySelector(".volume-circle").style.left = "0%";
+    document.querySelector(".current-volume").style.setProperty("width", "0%");
+    currentSong.volume = 0;
+  }
+});
+
+document
+  .querySelector(".volume-bar-overlay")
+  .addEventListener("mousemove", (e) => {
+    document
+      .querySelector(".volume-circle")
+      .classList.remove("visibility-hidden");
+    console.log(
+      `${(e.offsetX / document.querySelector(".volume-bar-overlay").offsetWidth) * 100}`,
+    );
+    let ratio =
+      (e.offsetX / document.querySelector(".volume-bar-overlay").offsetWidth) *
+      100;
+    document.querySelector(".volume-follower").style.width = `${ratio}%`;
+  });
+document.querySelector(".volume-bar-overlay").addEventListener("click", (e) => {
+  let target =
+    (e.offsetX / document.querySelector(".volume-bar-overlay").offsetWidth) *
+    100;
+  document
+    .querySelector(".volume-circle")
+    .style.setProperty("left", `${target}%`);
+  document
+    .querySelector(".current-volume")
+    .style.setProperty("width", `${target}%`);
+  currentSong.volume = target / 100;
+});
+
+document
+  .querySelector(".volume-bar-overlay")
+  .addEventListener("mouseout", (e) => {
+    document.querySelector(".volume-circle").classList.add("visibility-hidden");
+    document.querySelector(".volume-follower").style.setProperty("width", "0%");
+  });
